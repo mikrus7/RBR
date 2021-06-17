@@ -1,11 +1,12 @@
 <?php
-
+//polaczenia z DB
 require "includes/db.inc.php";
 
 ?>
 
 <html>
 <head>
+<!-- polaczenia z bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
 </head>
@@ -21,7 +22,8 @@ require "includes/db.inc.php";
 
     </thead>  
     <tbody>
-    <?php
+    <?php 
+    // pobiera dane z DB o postach ktore maja byc pokazane w index
         $sql = "SELECT * FROM current INNER JOIN posts ON current.currentPostsId = posts.postsId INNER JOIN users ON current.currentUsersId = users.id";
         $results = mysqli_query($conn,$sql);
         if(mysqli_num_rows($results) >0){
@@ -31,10 +33,13 @@ require "includes/db.inc.php";
                 <td><?php echo $row["usersName"];?></td>
                 <td><?php echo $row["postsTitle"];?></td>
                 <td><?php echo $row["postsBody"];?></td>
-                </tr> <?php 
+                </tr> 
+                <?php 
         
         }
+        
     } else{
+        //jesli nie ma danych w DB to wlacza script API 
         header('Location: /RBR/includes/api.inc.php');
     }
         ?> 
